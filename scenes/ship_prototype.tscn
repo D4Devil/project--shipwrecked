@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctsglvau3y5lf"]
+
+[ext_resource type="Script" path="res://scripts/gravitational_body_3d.gd" id="1_prxac"]
+[ext_resource type="Script" path="res://scripts/buoyant_body_3d.gd" id="2_vyyj1"]
+[ext_resource type="Script" path="res://scripts/sail_simulation.gd" id="3_ox3ip"]
+[ext_resource type="Script" path="res://scripts/rudder_simulation.gd" id="4_osjkg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5enxt"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nch5w"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_w20dk"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.3, 0)
+shape = SubResource("CapsuleShape3D_5enxt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.3, 0)
+mesh = SubResource("CapsuleMesh_nch5w")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.64838e-08, 0.696806, 0, -1.06343, -3.04584e-08, 0, 0.342263, -0.904285)
+mesh = SubResource("PrismMesh_w20dk")
+
+[node name="CustomComponents" type="Node" parent="."]
+
+[node name="GravitationalBody3D" type="Node3D" parent="CustomComponents"]
+script = ExtResource("1_prxac")
+
+[node name="BuoyantBody3D" type="Node3D" parent="CustomComponents"]
+script = ExtResource("2_vyyj1")
+
+[node name="SailSimulation" type="Node" parent="CustomComponents"]
+script = ExtResource("3_ox3ip")
+
+[node name="RudderSimulation" type="Node" parent="CustomComponents"]
+script = ExtResource("4_osjkg")
