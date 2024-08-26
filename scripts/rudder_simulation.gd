@@ -1,3 +1,4 @@
+class_name RudderSimulation
 extends Node
 
 @export var max_spin_angle: float = 180

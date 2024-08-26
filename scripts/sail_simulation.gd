@@ -1,3 +1,4 @@
+class_name SailSimulation
 extends Node
 
 @export var _sail_speeds : Array[float]
