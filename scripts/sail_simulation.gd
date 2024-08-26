@@ -3,6 +3,7 @@ extends Node
 
 @export var _sail_speeds : Array[float]
 @export var _current_sail_idx : int = 0
+@export var body: PhysicsBody3D
 
 signal sail_changed(idx: int, speed: float)
 

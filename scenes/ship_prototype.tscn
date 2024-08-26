@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctsglvau3y5lf"]
+[gd_scene load_steps=10 format=3 uid="uid://ctsglvau3y5lf"]
 
 [ext_resource type="Script" path="res://scripts/gravitational_body_3d.gd" id="1_prxac"]
 [ext_resource type="Script" path="res://scripts/buoyant_body_3d.gd" id="2_vyyj1"]
@@ -11,6 +11,13 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_nch5w"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_w20dk"]
+
+[sub_resource type="Curve3D" id="Curve3D_xmvd5"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, -0.87),
+"tilts": PackedFloat32Array(0)
+}
+point_count = 1
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 
@@ -28,8 +35,10 @@ mesh = SubResource("PrismMesh_w20dk")
 
 [node name="CustomComponents" type="Node" parent="."]
 
-[node name="GravitationalBody3D" type="Node3D" parent="CustomComponents"]
+[node name="GravitationalBody3D" type="Node3D" parent="CustomComponents" node_paths=PackedStringArray("body")]
 script = ExtResource("1_prxac")
+body = NodePath("../..")
+_gravity_force = 1.0
 
 [node name="BuoyantBody3D" type="Node3D" parent="CustomComponents"]
 script = ExtResource("2_vyyj1")
@@ -38,11 +47,15 @@ script = ExtResource("2_vyyj1")
 script = ExtResource("3_ox3ip")
 _sail_speeds = Array[float]([100.0, 300.0, 700.0])
 
-[node name="RudderSimulation" type="Node" parent="CustomComponents"]
+[node name="RudderSimulation" type="Node" parent="CustomComponents" node_paths=PackedStringArray("body")]
 script = ExtResource("4_osjkg")
+body = NodePath("../..")
 
 [node name="InputAgent" type="Node" parent="CustomComponents" node_paths=PackedStringArray("rudder", "sail")]
 script = ExtResource("5_xyooc")
 rudder = NodePath("../RudderSimulation")
 rudder_speed = 1.0
 sail = NodePath("../SailSimulation")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_xmvd5")
