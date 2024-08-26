@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctsglvau3y5lf"]
+[gd_scene load_steps=9 format=3 uid="uid://ctsglvau3y5lf"]
 
 [ext_resource type="Script" path="res://scripts/gravitational_body_3d.gd" id="1_prxac"]
 [ext_resource type="Script" path="res://scripts/buoyant_body_3d.gd" id="2_vyyj1"]
 [ext_resource type="Script" path="res://scripts/sail_simulation.gd" id="3_ox3ip"]
 [ext_resource type="Script" path="res://scripts/rudder_simulation.gd" id="4_osjkg"]
+[ext_resource type="Script" path="res://scripts/input_agent.gd" id="5_xyooc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5enxt"]
 
@@ -35,6 +36,13 @@ script = ExtResource("2_vyyj1")
 
 [node name="SailSimulation" type="Node" parent="CustomComponents"]
 script = ExtResource("3_ox3ip")
+_sail_speeds = Array[float]([100.0, 300.0, 700.0])
 
 [node name="RudderSimulation" type="Node" parent="CustomComponents"]
 script = ExtResource("4_osjkg")
+
+[node name="InputAgent" type="Node" parent="CustomComponents" node_paths=PackedStringArray("rudder", "sail")]
+script = ExtResource("5_xyooc")
+rudder = NodePath("../RudderSimulation")
+rudder_speed = 1.0
+sail = NodePath("../SailSimulation")

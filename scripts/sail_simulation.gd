@@ -11,7 +11,10 @@ signal sail_changed(idx: int, speed: float)
 ## ignore if the opertation is out of range
 func sail_shift(shitfts := 1) -> void:
 	var target_idx = _current_sail_idx + shitfts
-	assert(target_idx >= 0 and target_idx <= _sail_speeds.size() - 1, "Sail shift cannot be performed, index out of range.")
-	if target_idx >= 0 and target_idx <= _sail_speeds.size() - 1:
-		_current_sail_idx = target_idx
-		sail_changed.emit(_current_sail_idx, _sail_speeds[_current_sail_idx])
+
+	if target_idx < 0 or target_idx >= _sail_speeds.size():
+		push_warning("Sail shift cannot be performed, index out of range.")
+		return 
+	
+	_current_sail_idx = target_idx
+	sail_changed.emit(_current_sail_idx, _sail_speeds[_current_sail_idx])
