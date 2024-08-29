@@ -19,3 +19,8 @@ func sail_shift(shitfts := 1) -> void:
 	
 	_current_sail_idx = target_idx
 	sail_changed.emit(_current_sail_idx, _sail_speeds[_current_sail_idx])
+
+
+func _physics_process(delta):
+	body = body as CharacterBody3D
+	body.move_and_collide(-body.basis.z * _sail_speeds[_current_sail_idx] * delta)
