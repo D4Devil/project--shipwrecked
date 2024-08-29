@@ -35,6 +35,9 @@ func _ready() -> void:
 			## Rotate the point (Vector) before applying the sample transformations 
 			var point = Vector3.UP.rotated(Vector3.FORWARD, deg_to_rad(angle))
 
+			## Offset the point by a sample taken from the Curve
+			point *= spline_thickness_curve.sample(offset/curve.get_baked_length())
+
 			## Apply sample transformations to the point
 			vertex.append(sample_transform * point)
 
