@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://duy20o2pdml3s"]
+[gd_scene load_steps=8 format=4 uid="uid://duy20o2pdml3s"]
 
-[ext_resource type="PackedScene" uid="uid://ctsglvau3y5lf" path="res://scenes/ship_prototype.tscn" id="1_rn7ca"]
+[ext_resource type="Script" path="res://scripts/spline_poligon.gd" id="1_gf0fv"]
+[ext_resource type="Curve" uid="uid://7urnxpxt7vdg" path="res://resources/gravity_curve.tres" id="2_p38u1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i62ym"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -15,9 +16,25 @@ sky = SubResource("Sky_q87ge")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="Main" type="Node3D"]
+[sub_resource type="Curve3D" id="Curve3D_tx32e"]
+bake_interval = 1.0
+_data = {
+"points": PackedVector3Array(-8.565, 0, 0, 17.66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25, 22, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("1_rn7ca")]
+[sub_resource type="ArrayMesh" id="ArrayMesh_4y0b8"]
+_surfaces = [{
+"aabb": AABB(0, -1, -0.866026, 25.854, 23.7507, 1.73205),
+"format": 34359738369,
+"primitive": 0,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 318,
+"vertex_data": PackedByteArray("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")
+}]
+
+[node name="Main" type="Node3D"]
 
 [node name="Environment" type="Node" parent="."]
 
@@ -29,4 +46,41 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="Environment"]
-transform = Transform3D(0.524018, -0.411588, 0.745655, 0, 0.875482, 0.48325, -0.851707, -0.253232, 0.458768, 6.43724, 4.1719, 3.96055)
+transform = Transform3D(0.93758, 0.114395, -0.328417, 0, 0.944351, 0.328938, 0.34777, -0.308406, 0.885405, 0.60994, 16.7765, 18.306)
+
+[node name="Path3D" type="Path3D" parent="." node_paths=PackedStringArray("mesh_instance")]
+transform = Transform3D(0.992141, 0.125125, 0, -0.125125, 0.992141, 0, 0, 0, 1, 0, 0, 0)
+curve = SubResource("Curve3D_tx32e")
+script = ExtResource("1_gf0fv")
+spline_thickness_curve = ExtResource("2_p38u1")
+tube_segments = 10
+mesh_instance = NodePath("MeshInstance3D")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(3.32991e-08, -0.790794, -0.612028, -5.96031e-08, 0.612053, -0.790762, 0.999974, 6.28146e-08, -2.67526e-08, 18.5487, 10.2391, 0)
+progress = 21.98
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D"]
+mesh = SubResource("ArrayMesh_4y0b8")
+
+[node name="AspectRatioContainer" type="ItemList" parent="."]
+visible = false
+offset_right = 162.0
+offset_bottom = 140.0
+
+[node name="Button" type="Button" parent="AspectRatioContainer"]
+layout_mode = 0
+offset_right = 107.0
+offset_bottom = 46.0
+text = "test offset"
+
+[node name="Button2" type="Button" parent="AspectRatioContainer"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 65.0
+offset_right = 109.0
+offset_bottom = 96.0
+text = "test position"
+
+[connection signal="pressed" from="AspectRatioContainer/Button" to="Path3D" method="test_closest_offset" flags=6]
+[connection signal="pressed" from="AspectRatioContainer/Button2" to="Path3D" method="test_closet_point" flags=6]
