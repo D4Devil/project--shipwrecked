@@ -2,10 +2,10 @@ extends Node3D
 
 @export var body : PhysicsBody3D
 
-var _gravity_direction = Vector3.ZERO :
+@export var _gravity_direction = Vector3.DOWN :
 	set = set_gravity_direction
 
-var _gravity_force = 0.0 :
+@export var _gravity_force = 9.81 :
 	set = set_gravity_force
 
 
