@@ -10,10 +10,6 @@ extends Node3D
 signal gravity_changed(new_gravity: Vector3) 
 
 
-func _ready():
-	body.add_to_group("gravitational_body")
-
-
 func _physics_process(delta):
 	if body is CharacterBody3D:
 		body = body as CharacterBody3D
@@ -26,3 +22,13 @@ func _physics_process(delta):
 func set_gravity_direction(value: Vector3) -> void:
 	_gravity_direction = value
 	gravity_changed.emit()
+
+
+func _enter_tree() -> void:
+	assert(body, "A Physics body must be provided")
+	body.set_collision_layer_value(2, true)
+
+
+func _exit_tree() -> void:
+	if body:
+		body.set_collision_layer_value(2, false)

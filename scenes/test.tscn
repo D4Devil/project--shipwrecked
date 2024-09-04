@@ -24,7 +24,7 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.65473)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.73927, 36.0473)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_wigvl")
@@ -36,20 +36,20 @@ shape = SubResource("SphereShape3D_otig1")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
 mesh = SubResource("SphereMesh_qv3f0")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Area3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Area3D/MeshInstance3D"]
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D/MeshInstance3D/StaticBody3D"]
 shape = SubResource("SphereShape3D_u32ly")
 
 [node name="ShipPrototype" parent="." instance=ExtResource("2_mt4ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.5241, -0.0381622)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.7241, 0)
 
 [node name="ShipPrototype2" parent="." instance=ExtResource("2_mt4ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 41.6592, 15.0939)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 44.8338, 61.1758)
 
 [node name="ShipPrototype3" parent="." instance=ExtResource("2_mt4ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09266, 34.6164, -25.7627)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.15632, 3.95044, 79.6195)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.00694369, -0.65799, 0.752995, 0, 0.753013, 0.658006, -0.999976, 0.00456899, -0.00522869, 27.0735, 54.4947, -0.563363)
+transform = Transform3D(0.620483, -0.117918, 0.775304, 0, 0.988631, 0.150364, -0.78422, -0.093298, 0.613429, 68.5117, 21.3882, 84.5281)

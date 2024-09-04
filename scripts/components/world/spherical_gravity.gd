@@ -1,3 +1,4 @@
+class_name SphericalGravity
 extends Area3D
 
 @export var gravity_force: float
@@ -11,26 +12,28 @@ func _ready():
 func on_body_entered(body: Node3D) -> void:
 	print(body.name + " entered the area")
 
-	if not body.is_in_group("gravitational_body"):
-		return
-
 	var gravity_nodes := body.find_children("*", "GravitationalBody3D")
 	if not gravity_nodes:
 		return
 
-	_bodies.append_array(gravity_nodes)
+	for node in gravity_nodes:
+		if not _bodies.has(node): 
+			_bodies.append(node)
 
 
 func on_body_exited(body: Node3D) -> void:
 	print(body.name + " exited the area")
 
-	if body is not GravitationalBody3D || !_bodies.has(body as GravitationalBody3D):
+	var gravity_nodes := body.find_children("*", "GravitationalBody3D")
+	if not gravity_nodes:
 		return
-	
-	_bodies.erase(body)
+
+	for node in gravity_nodes:
+		if _bodies.has(node):
+			_bodies.erase(body)
 
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	for body in _bodies:
-		body.set_gravity_direction(body.global_position.direction_to(global_position) * gravity_force)
-	print('test')
+		var new_dir = body.global_position.direction_to(global_position)
+		body.set_gravity_direction(new_dir * gravity_force)
