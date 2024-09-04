@@ -1,14 +1,17 @@
 class_name SailSimulation
 extends Node
-
-## Component that controls a set of speeds, like gears in a car's transmision. [br]
+## Node that controls a set of speeds, like gears in a car's transmision. [br]
 ## Simulates the different states of a deployed sail (Not deployed, half-deployed, fully-deployed, etc.)
+##
+## Uses the _physics_process callback to constantly push a PhysicsBody3D towards it's own
+## forward direction.
 
-## [Dependency]: To whom this simulation will be applyed
+
+## [Dependency]: To whom this simulation will be applied
 @export var body: PhysicsBody3D
 
 ## Your custom set of speeds
-@export var _sail_speeds : Array[float]
+@export var _sail_speeds : Array[float] = [0, 30, 70,]
 
 ## The cached position of the sail state 
 @export var _current_sail_idx : int = 0
