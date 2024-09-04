@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://duy20o2pdml3s"]
 
-[ext_resource type="Script" path="res://scripts/spline_poligon.gd" id="1_gf0fv"]
+[ext_resource type="Script" path="res://scripts/components/world/spline_poligon.gd" id="1_gf0fv"]
 [ext_resource type="Curve" uid="uid://gm54t2ggm1yl" path="res://resources/gravity_curve.tres" id="2_p38u1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i62ym"]
