@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://caytfce6raore"]
+
+[ext_resource type="Script" path="res://scripts/components/world/spherical_gravity.gd" id="1_wigvl"]
+[ext_resource type="PackedScene" uid="uid://ctsglvau3y5lf" path="res://scenes/ship_prototype.tscn" id="2_mt4ja"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_otig1"]
+radius = 50.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xqgdi"]
+albedo_color = Color(0.137255, 0.294118, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_qv3f0"]
+material = SubResource("StandardMaterial3D_xqgdi")
+radius = 40.0
+height = 80.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u32ly"]
+radius = 40.0
+
+[node name="Test" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.65473)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_wigvl")
+gravity_force = 10.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_otig1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = SubResource("SphereMesh_qv3f0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Area3D"]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D/StaticBody3D"]
+shape = SubResource("SphereShape3D_u32ly")
+
+[node name="ShipPrototype" parent="." instance=ExtResource("2_mt4ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.5241, -0.0381622)
+
+[node name="ShipPrototype2" parent="." instance=ExtResource("2_mt4ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 41.6592, 15.0939)
+
+[node name="ShipPrototype3" parent="." instance=ExtResource("2_mt4ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09266, 34.6164, -25.7627)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.00694369, -0.65799, 0.752995, 0, 0.753013, 0.658006, -0.999976, 0.00456899, -0.00522869, 27.0735, 54.4947, -0.563363)
