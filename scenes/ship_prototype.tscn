@@ -28,21 +28,20 @@ mesh = SubResource("PrismMesh_w20dk")
 
 [node name="CustomComponents" type="Node3D" parent="."]
 
-[node name="GravitationalBody3D" type="Node3D" parent="CustomComponents" node_paths=PackedStringArray("body")]
+[node name="GravitationalBody3D" type="Node3D" parent="CustomComponents"]
 script = ExtResource("1_prxac")
-body = NodePath("../..")
 _gravity_direction = Vector3(0, 0, 0)
 
 [node name="BuoyantBody3D" type="Node3D" parent="CustomComponents"]
 script = ExtResource("2_vyyj1")
 
-[node name="SailSimulation" type="Node" parent="CustomComponents" node_paths=PackedStringArray("body")]
+[node name="SailSimulation" type="Node" parent="CustomComponents" node_paths=PackedStringArray("physics_body")]
 script = ExtResource("3_ox3ip")
-body = NodePath("../..")
+physics_body = NodePath("../..")
 
-[node name="RudderSimulation" type="Node" parent="CustomComponents" node_paths=PackedStringArray("body")]
+[node name="RudderSimulation" type="Node" parent="CustomComponents" node_paths=PackedStringArray("physics_body")]
 script = ExtResource("4_osjkg")
-body = NodePath("../..")
+physics_body = NodePath("../..")
 
 [node name="InputAgent" type="Node" parent="CustomComponents" node_paths=PackedStringArray("rudder", "sail")]
 script = ExtResource("5_xyooc")

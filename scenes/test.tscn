@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://caytfce6raore"]
 
-[ext_resource type="Script" path="res://scripts/components/world/spherical_gravity.gd" id="1_wigvl"]
+[ext_resource type="Script" path="res://scripts/components/world/gravity_field_3d.gd" id="1_wigvl"]
 [ext_resource type="PackedScene" uid="uid://ctsglvau3y5lf" path="res://scenes/ship_prototype.tscn" id="2_mt4ja"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_otig1"]
@@ -14,7 +14,7 @@ material = SubResource("StandardMaterial3D_xqgdi")
 radius = 40.0
 height = 80.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_u32ly"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_4tr76"]
 radius = 40.0
 
 [node name="Test" type="Node3D"]
@@ -40,7 +40,7 @@ mesh = SubResource("SphereMesh_qv3f0")
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D/MeshInstance3D/StaticBody3D"]
-shape = SubResource("SphereShape3D_u32ly")
+shape = SubResource("SphereShape3D_4tr76")
 
 [node name="ShipPrototype" parent="." instance=ExtResource("2_mt4ja")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.7241, 0)
