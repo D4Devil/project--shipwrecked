@@ -1,12 +1,18 @@
 class_name GravitationalBody3D
 extends Node3D
+## Node that provides custom-gravity support, to be used along
+## with a GravityField3D.
+##
+## Uses the _physics_process callback to apply a constant force to the given PhysicsBody3D
 
+## [Dependency]: To whom this simulation will be applied
 @export var physics_body : PhysicsBody3D
 
+## Current gravity direction state
 @export var _gravity_direction = Vector3.DOWN * 9.81:
 	set = set_gravity_direction
 
-
+## Triggered when the direction of the gravity changes
 signal gravity_changed(new_gravity: Vector3) 
 
 

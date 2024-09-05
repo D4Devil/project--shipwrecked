@@ -13,8 +13,8 @@ extends Node
 ## Your custom set of speeds
 @export var _sail_speeds : Array[float] = [0, 30, 70,]
 
-## The cached position of the sail state 
-@export var _current_sail_idx : int = 0
+## The position of the sail state 
+var _current_sail_idx : int = 0
 
 
 ## Emmited ONLY when a sail shift occurs succesfully.

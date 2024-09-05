@@ -1,4 +1,4 @@
-class_name SphericalGravity
+class_name GravityField3D
 extends Area3D
 
 @export var gravity_force: float
@@ -34,6 +34,8 @@ func on_body_exited(body: Node3D) -> void:
 
 
 func _physics_process(_delta: float) -> void:
+
+	## [Prototype] Sphere Collider	
 	for body in _bodies:
 		var new_dir = body.global_position.direction_to(global_position)
 		body.set_gravity_direction(new_dir * gravity_force)
