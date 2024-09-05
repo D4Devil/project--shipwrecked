@@ -8,7 +8,7 @@ extends Node
 
 
 ## [Dependency]: To whom this simulation will be applied
-@export var body: PhysicsBody3D
+@export var physics_body: PhysicsBody3D
 
 ## Your custom set of speeds
 @export var _sail_speeds : Array[float] = [0, 30, 70,]
@@ -36,8 +36,8 @@ func sail_shift(shitfts := 1) -> void:
 
 
 func _physics_process(delta: float):
-	body = body as CharacterBody3D
-	body.move_and_collide(-body.basis.z * _sail_speeds[_current_sail_idx] * delta)
+	physics_body = physics_body as CharacterBody3D
+	physics_body.move_and_collide(-physics_body.basis.z * _sail_speeds[_current_sail_idx] * delta)
 
 
 func get_current_speed() -> float:

@@ -7,10 +7,10 @@ extends Node
 ## it's own Up direction.
 
 ## [Dependency]: To whom this simulation will be applied 
-@export var body: PhysicsBody3D
+@export var physics_body: PhysicsBody3D
 
 ## [Animation Helper]: Represents the turning of the Rudder (wheel) that controls the direction.
-## This member will NOT affect the direction of the body, and its only intended for visual representations
+## This member will NOT affect the direction of the physics_body, and its only intended for visual representations
 @export var max_spin_angle: float = 180
 
 ## Half of the openes of the direction angle. The limits will be defined as [-value, value] inclusive so,
@@ -40,5 +40,5 @@ func spin(direction_factor: float) -> void:
 
 
 func _physics_process(delta):
-	body = body as CharacterBody3D
-	body.rotate_object_local(Vector3.UP, deg_to_rad(-_current_direction_angle * delta))
+	physics_body = physics_body as CharacterBody3D
+	physics_body.rotate_object_local(Vector3.UP, deg_to_rad(-_current_direction_angle * delta))
