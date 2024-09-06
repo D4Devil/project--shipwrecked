@@ -57,6 +57,11 @@ sail = NodePath("../SailSimulation")
 [node name="Cannon" type="Node3D" parent="Combat"]
 script = ExtResource("6_s844l")
 _cooldown = 5.0
+_can_be_charged = null
+_overcharge_reset = null
+_charging_speed = null
+_minimum_charging_time = null
+_maximum_charging_time = null
 
 [node name="SingleShooter" type="Node3D" parent="Combat/Cannon"]
 script = ExtResource("7_hfqxd")
@@ -69,6 +74,12 @@ script = ExtResource("7_hfqxd")
 
 [node name="Triple-Cannon" type="Node3D" parent="Combat"]
 script = ExtResource("6_s844l")
+_cooldown = null
+_can_be_charged = null
+_overcharge_reset = null
+_charging_speed = null
+_minimum_charging_time = null
+_maximum_charging_time = null
 
 [node name="MultiShooter" type="Node3D" parent="Combat/Triple-Cannon"]
 script = ExtResource("7_hfqxd")
@@ -81,6 +92,12 @@ script = ExtResource("7_hfqxd")
 
 [node name="RayGun" type="Node3D" parent="Combat"]
 script = ExtResource("6_s844l")
+_cooldown = null
+_can_be_charged = null
+_overcharge_reset = null
+_charging_speed = null
+_minimum_charging_time = null
+_maximum_charging_time = null
 
 [node name="SingleShooter" type="Node3D" parent="Combat/RayGun"]
 script = ExtResource("7_hfqxd")

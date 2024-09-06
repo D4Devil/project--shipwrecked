@@ -95,7 +95,3 @@ func update_cooldowm() -> void:
 			if _cooldown_timer.time_left > _cooldown_timer.wait_time:
 				_cooldown_timer.stop()
 				_cooldown_timer.start()
-
-
-func echo(message: String) -> void:
-	print(message)

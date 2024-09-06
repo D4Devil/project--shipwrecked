@@ -29,6 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.4143, 0)
 
 [node name="Cannon" type="Node3D" parent="ShipPrototype"]
 script = ExtResource("2_j4uhw")
+_cooldown = 10.0
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0
@@ -83,5 +84,5 @@ text = "Fire"
 layout_mode = 2
 text = "Charge"
 
-[connection signal="being_used" from="ShipPrototype/Cannon" to="ShipPrototype/Cannon" method="echo" binds= ["Cannon Selected"]]
 [connection signal="pressed" from="Ui/HBoxContainer/VBoxContainer/Button" to="ShipPrototype/Cannon" method="on_weapon_being_used" binds= [true]]
+[connection signal="pressed" from="Ui/HBoxContainer/VBoxContainer/Button2" to="ShipPrototype/Cannon" method="on_weapon_fired"]
