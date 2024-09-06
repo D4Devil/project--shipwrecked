@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctsglvau3y5lf"]
+[gd_scene load_steps=10 format=3 uid="uid://ctsglvau3y5lf"]
 
 [ext_resource type="Script" path="res://scripts/components/agent/gravitational_body_3d.gd" id="1_prxac"]
 [ext_resource type="Script" path="res://scripts/components/agent/buoyant_body_3d.gd" id="2_vyyj1"]
@@ -7,10 +7,18 @@
 [ext_resource type="Script" path="res://scripts/components/agent/input_agent.gd" id="5_xyooc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5enxt"]
+radius = 2.0
+height = 8.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_nch5w"]
+radius = 2.0
+height = 8.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s2pt1"]
+albedo_color = Color(0.101701, 0.797511, 0.221871, 1)
 
 [sub_resource type="PrismMesh" id="PrismMesh_w20dk"]
+material = SubResource("StandardMaterial3D_s2pt1")
 
 [node name="ShipPrototype" type="CharacterBody3D"]
 
@@ -23,7 +31,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.3
 mesh = SubResource("CapsuleMesh_nch5w")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.64838e-08, 0.696806, 0, -1.06343, -3.04584e-08, 0, 0.342263, -0.904285)
+transform = Transform3D(1, 0, 0, 0, -4.64838e-08, 0.696806, 0, -1.06343, -3.04584e-08, 0, 1.6541, -4.57314)
 mesh = SubResource("PrismMesh_w20dk")
 
 [node name="CustomComponents" type="Node3D" parent="."]
