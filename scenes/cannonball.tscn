@@ -10,18 +10,21 @@ script/source = "extends RigidBody3D
 "
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_uytbx"]
+radius = 0.2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pmc6b"]
 albedo_color = Color(0.187176, 0.187176, 0.187176, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_df86g"]
 material = SubResource("StandardMaterial3D_pmc6b")
+radius = 0.2
+height = 0.4
 
 [node name="Cannonball" type="RigidBody3D"]
-mass = 0.1
+mass = 5.0
 gravity_scale = 0.0
 script = SubResource("GDScript_xktnf")
-initial_velocity = 10.0
+initial_velocity = 10000.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_uytbx")
@@ -32,4 +35,7 @@ mesh = SubResource("SphereMesh_df86g")
 [node name="GravitationalBody3D" type="Node3D" parent="." node_paths=PackedStringArray("physics_body")]
 script = ExtResource("1_gqsak")
 physics_body = NodePath("..")
+gravity_scalar = 4.0
 _gravity_direction = Vector3(0, 0, 0)
+
+[connection signal="body_entered" from="." to="." method="queue_free" unbinds=1]

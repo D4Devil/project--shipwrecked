@@ -11,7 +11,7 @@ func _on_weapon_fired(can_be_charged: bool, current_charge: float, _minimum_char
 	for collider in ignored_colliders:
 		(current_projectile as PhysicsBody3D).add_collision_exception_with(collider)
 
-	var velocity := -spawner.basis.z.normalized() 
+	var velocity := -spawner.global_basis.z.normalized() 
 	if can_be_charged:
 		velocity *= current_charge
 

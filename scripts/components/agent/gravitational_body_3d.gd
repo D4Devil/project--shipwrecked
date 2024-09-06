@@ -8,6 +8,9 @@ extends Node3D
 ## [Dependency]: To whom this simulation will be applied
 @export var physics_body : PhysicsBody3D
 
+## Gravity scalar for tunning
+@export var gravity_scalar: float = 1
+
 ## Current gravity direction state
 @export var _gravity_direction = Vector3.DOWN * 9.81:
 	set = set_gravity_direction
@@ -19,11 +22,11 @@ signal gravity_changed(new_gravity: Vector3)
 func _physics_process(delta):
 	if physics_body is CharacterBody3D:
 		physics_body = physics_body as CharacterBody3D
-		physics_body.move_and_collide(_gravity_direction * delta)
+		physics_body.move_and_collide((_gravity_direction / (delta * delta)) * delta )
 	
 	if physics_body is RigidBody3D:
 		physics_body = physics_body as RigidBody3D
-		physics_body.apply_central_force(_gravity_direction * delta)
+		physics_body.apply_central_force((_gravity_direction / (delta * delta)) * delta)
 
 
 func set_gravity_direction(value: Vector3) -> void:
