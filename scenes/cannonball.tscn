@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6sf61dl0c6w3"]
+
+[ext_resource type="Script" path="res://scripts/components/agent/gravitational_body_3d.gd" id="1_gqsak"]
+
+[sub_resource type="GDScript" id="GDScript_xktnf"]
+resource_name = "Cannonball"
+script/source = "extends RigidBody3D
+
+@export var initial_force: float = 0
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uytbx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pmc6b"]
+albedo_color = Color(0.187176, 0.187176, 0.187176, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_df86g"]
+material = SubResource("StandardMaterial3D_pmc6b")
+
+[node name="Cannonball" type="RigidBody3D"]
+mass = 0.1
+gravity_scale = 0.0
+script = SubResource("GDScript_xktnf")
+initial_force = 200.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_uytbx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_df86g")
+
+[node name="GravitationalBody3D" type="Node3D" parent="." node_paths=PackedStringArray("physics_body")]
+script = ExtResource("1_gqsak")
+physics_body = NodePath("..")
+_gravity_direction = Vector3(0, 0, 0)

@@ -23,13 +23,12 @@ var _can_be_fired: bool = true
 @export var _charging_speed: float = 0.2
 @export var _minimum_charging_time: float = 0
 @export var _maximum_charging_time: float = 1
-var _current_charged_time
+var _current_charged_time = 0
 
 
 signal being_used(used: bool)
-signal fired(charge: float)
-signal overcharged(max_charge)
-signal charged(delta: float)
+signal fired(can_be_charged: bool, current_charge: float, minimum_charging_time: float, maximum_charging_time: float)
+signal charged(current_charge: float, minimum_charging_time: float, maximum_charging_time: float, overcharged: bool)
 
 
 func _ready() -> void:
@@ -40,12 +39,13 @@ func _ready() -> void:
 		_cooldown_timer.autostart = false
 		_cooldown_timer.wait_time = _cooldown
 		_cooldown_timer.timeout.connect(_on_cooldown_ended)
+		_cooldown_timer.paused = true
 		add_child(_cooldown_timer)
+		_cooldown_timer.start()
 
 
 func on_weapon_being_used(used: bool) -> void:
-	if being_used:
-		being_used.emit(used)
+	being_used.emit(used)
 
 
 func on_weapon_fired() -> void:
@@ -57,10 +57,9 @@ func on_weapon_fired() -> void:
 
 	if _cooldown > 0:
 		_can_be_fired = false
-		_cooldown_timer.start()
+		_cooldown_timer.paused = false
 
-	if fired:
-		fired.emit(_current_charged_time)
+	fired.emit(_can_be_charged, _current_charged_time, _minimum_charging_time, _maximum_charging_time)
 
 
 func on_weapon_charged(delta: float) -> void:
@@ -68,22 +67,17 @@ func on_weapon_charged(delta: float) -> void:
 		print('Current weapon %s can\'t be charged', name)
 		return
 	
+	var _overcharged = false
 	_current_charged_time += delta * _charging_speed
 	if _overcharge_reset && _current_charged_time > _maximum_charging_time:
-		_on_overcharged()
+		_overcharged = true
 		_current_charged_time = 0
-		return
-
-	if charged:
-		charged.emit(delta)
-
-
-func _on_overcharged() -> void:
-	if overcharged:
-		overcharged.emit(_maximum_charging_time)
+		
+	charged.emit(_current_charged_time, _minimum_charging_time, _maximum_charging_time, _overcharged)
 
 
 func _on_cooldown_ended() -> void:
+	_cooldown_timer.paused = true
 	_can_be_fired = true
 
 

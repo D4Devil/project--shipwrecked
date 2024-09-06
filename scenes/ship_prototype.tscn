@@ -1,12 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://ctsglvau3y5lf"]
+[gd_scene load_steps=9 format=3 uid="uid://ctsglvau3y5lf"]
 
 [ext_resource type="Script" path="res://scripts/components/agent/gravitational_body_3d.gd" id="1_prxac"]
 [ext_resource type="Script" path="res://scripts/components/agent/buoyant_body_3d.gd" id="2_vyyj1"]
 [ext_resource type="Script" path="res://scripts/components/agent/sail_simulation.gd" id="3_ox3ip"]
 [ext_resource type="Script" path="res://scripts/components/agent/rudder_simulation.gd" id="4_osjkg"]
 [ext_resource type="Script" path="res://scripts/components/agent/input_agent.gd" id="5_xyooc"]
-[ext_resource type="Script" path="res://scripts/components/weapon/weapon.gd" id="6_s844l"]
-[ext_resource type="Script" path="res://scripts/components/weapon/weapon_behavior.gd" id="7_hfqxd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5enxt"]
 
@@ -51,61 +49,3 @@ script = ExtResource("5_xyooc")
 rudder = NodePath("../RudderSimulation")
 rudder_speed = 1.0
 sail = NodePath("../SailSimulation")
-
-[node name="Combat" type="Node" parent="."]
-
-[node name="Cannon" type="Node3D" parent="Combat"]
-script = ExtResource("6_s844l")
-_cooldown = 5.0
-_can_be_charged = null
-_overcharge_reset = null
-_charging_speed = null
-_minimum_charging_time = null
-_maximum_charging_time = null
-
-[node name="SingleShooter" type="Node3D" parent="Combat/Cannon"]
-script = ExtResource("7_hfqxd")
-
-[node name="CannonBall" type="Node3D" parent="Combat/Cannon/SingleShooter"]
-
-[node name="Cooldown" type="Timer" parent="Combat/Cannon"]
-
-[node name="ArchAim" type="Node3D" parent="Combat/Cannon"]
-
-[node name="Triple-Cannon" type="Node3D" parent="Combat"]
-script = ExtResource("6_s844l")
-_cooldown = null
-_can_be_charged = null
-_overcharge_reset = null
-_charging_speed = null
-_minimum_charging_time = null
-_maximum_charging_time = null
-
-[node name="MultiShooter" type="Node3D" parent="Combat/Triple-Cannon"]
-script = ExtResource("7_hfqxd")
-
-[node name="CannonBall" type="Node3D" parent="Combat/Triple-Cannon/MultiShooter"]
-
-[node name="Cooldown" type="Timer" parent="Combat/Triple-Cannon"]
-
-[node name="ArchAim" type="Node3D" parent="Combat/Triple-Cannon"]
-
-[node name="RayGun" type="Node3D" parent="Combat"]
-script = ExtResource("6_s844l")
-_cooldown = null
-_can_be_charged = null
-_overcharge_reset = null
-_charging_speed = null
-_minimum_charging_time = null
-_maximum_charging_time = null
-
-[node name="SingleShooter" type="Node3D" parent="Combat/RayGun"]
-script = ExtResource("7_hfqxd")
-
-[node name="Lasser" type="Node3D" parent="Combat/RayGun/SingleShooter"]
-
-[node name="Cooldown" type="Timer" parent="Combat/RayGun"]
-
-[node name="LinearAim" type="Node3D" parent="Combat/RayGun"]
-
-[node name="WeaponController" type="Node" parent="Combat"]
