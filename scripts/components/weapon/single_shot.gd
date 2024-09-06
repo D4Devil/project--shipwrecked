@@ -2,7 +2,6 @@ class_name SingleShot
 extends Node
 
 @export var projectile_scene: PackedScene
-
 @export var spawner: Node3D
 @export var ignored_colliders : Array[CollisionObject3D]
 
@@ -10,14 +9,14 @@ func _on_weapon_fired(can_be_charged: bool, current_charge: float, _minimum_char
 	var current_projectile := projectile_scene.instantiate()
 	
 	for collider in ignored_colliders:
-		(current_projectile as PhysicalBone3D).add_collision_exception_with(collider)
+		(current_projectile as PhysicsBody3D).add_collision_exception_with(collider)
 
-	var velocity := spawner.basis.z.normalized() 
+	var velocity := -spawner.basis.z.normalized() 
 	if can_be_charged:
 		velocity *= current_charge
 
 	for property in current_projectile.get_property_list():
-		if property['name'] == 'initial_velocit':
+		if property['name'] == 'initial_velocity':
 			velocity *= current_projectile.initial_velocity
 
 	if current_projectile is CharacterBody3D:

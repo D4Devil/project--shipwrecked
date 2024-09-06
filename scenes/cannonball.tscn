@@ -6,7 +6,7 @@
 resource_name = "Cannonball"
 script/source = "extends RigidBody3D
 
-@export var initial_force: float = 0
+@export var initial_velocity: float = 0
 "
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_uytbx"]
@@ -21,7 +21,7 @@ material = SubResource("StandardMaterial3D_pmc6b")
 mass = 0.1
 gravity_scale = 0.0
 script = SubResource("GDScript_xktnf")
-initial_force = 200.0
+initial_velocity = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_uytbx")

@@ -2,6 +2,10 @@ class_name Weapon
 extends Node3D
 
 # General Weapon Variables
+var _active: bool = false :
+	set = set_active
+		
+
 @export var _cooldown: float = 0:
 	set(value):
 		_cooldown = value
@@ -42,14 +46,20 @@ func _ready() -> void:
 		_cooldown_timer.paused = true
 		add_child(_cooldown_timer)
 		_cooldown_timer.start()
+	
+	_active = false
 
-
-func on_weapon_being_used(used: bool) -> void:
-	being_used.emit(used)
+func set_active(value: bool) -> void:
+	_active = value
+	if _active:
+		process_mode = PROCESS_MODE_INHERIT
+	else:
+		process_mode = PROCESS_MODE_DISABLED
+	being_used.emit(_active)
 
 
 func on_weapon_fired() -> void:
-	if not _can_be_fired:
+	if not _can_be_fired or not _active:
 		return
 
 	if _can_be_charged && _current_charged_time < _minimum_charging_time:
@@ -63,6 +73,9 @@ func on_weapon_fired() -> void:
 
 
 func on_weapon_charged(delta: float) -> void:
+	if not _active:
+		return
+	
 	if not _can_be_charged:
 		print('Current weapon %s can\'t be charged', name)
 		return

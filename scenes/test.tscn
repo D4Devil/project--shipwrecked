@@ -31,7 +31,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.4143, 0)
 
 [node name="Cannon" type="Node3D" parent="ShipPrototype"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.694592, -1.03353)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.694592, -1.11504)
 script = ExtResource("2_j4uhw")
 _cooldown = 1.0
 
@@ -44,10 +44,11 @@ vertical_speed = 5.0
 line_length = 5.0
 line_color = Color(0.8905, 0.501874, 0, 1)
 
-[node name="SingleShot" type="Node3D" parent="ShipPrototype/Cannon" node_paths=PackedStringArray("spawner")]
+[node name="SingleShot" type="Node3D" parent="ShipPrototype/Cannon" node_paths=PackedStringArray("spawner", "ignored_colliders")]
 script = ExtResource("4_0ruau")
 projectile_scene = ExtResource("5_4sn0c")
 spawner = NodePath("../AimStraight")
+ignored_colliders = [NodePath("../..")]
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0
@@ -84,15 +85,14 @@ anchors_preset = 9
 anchor_bottom = 1.0
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="Control/VBoxContainer"]
+[node name="CheckButton" type="CheckButton" parent="Control/VBoxContainer"]
 layout_mode = 2
-text = "Use Weapon"
+text = "Select Weapon"
 
 [node name="Button2" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
 text = "Fire"
 
-[connection signal="being_used" from="ShipPrototype/Cannon" to="ShipPrototype/Cannon/AimStraight" method="_on_aim_active"]
 [connection signal="fired" from="ShipPrototype/Cannon" to="ShipPrototype/Cannon/SingleShot" method="_on_weapon_fired"]
-[connection signal="toggled" from="Control/VBoxContainer/Button" to="ShipPrototype/Cannon" method="on_weapon_being_used"]
+[connection signal="toggled" from="Control/VBoxContainer/CheckButton" to="ShipPrototype/Cannon" method="set_active"]
 [connection signal="pressed" from="Control/VBoxContainer/Button2" to="ShipPrototype/Cannon" method="on_weapon_fired"]
