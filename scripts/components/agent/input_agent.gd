@@ -5,15 +5,19 @@ extends Node
 @export var sail : SailSimulation
 
 
-func _unhandled_input(event):
-	if event.is_action("ui_left"):
-		rudder.spin(-1 * rudder_speed)
-	
-	if event.is_action("ui_right"):
-		rudder.spin(rudder_speed)
+func _physics_process(_delta: float) -> void:
+	sail_input_handle()
+	rudder_input_handle()
 
-	if event.is_action_pressed("ui_accept"):
+
+func sail_input_handle() -> void:
+	if Input.is_action_pressed("in_game_r_b"):
 		sail.sail_shift(1)
 
-	if event.is_action_pressed("ui_cancel"):
+	if Input.is_action_pressed("in_game_l_b"):
 		sail.sail_shift(-1)
+
+ 
+func rudder_input_handle() -> void:
+	var axis = Input.get_axis("in_game_l_left", "in_game_l_right")
+	rudder.spin(axis * rudder_speed)
