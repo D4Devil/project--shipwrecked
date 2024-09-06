@@ -22,7 +22,8 @@ func _physics_process(delta):
 		physics_body.move_and_collide(_gravity_direction * delta)
 	
 	if physics_body is RigidBody3D:
-		pass ## adding forces
+		physics_body = physics_body as RigidBody3D
+		physics_body.apply_central_force(_gravity_direction * delta)
 
 
 func set_gravity_direction(value: Vector3) -> void:

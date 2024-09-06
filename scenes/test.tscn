@@ -1,7 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://caytfce6raore"]
+[gd_scene load_steps=11 format=3 uid="uid://caytfce6raore"]
 
 [ext_resource type="Script" path="res://scripts/components/world/gravity_field_3d.gd" id="1_wigvl"]
+[ext_resource type="Script" path="res://scripts/components/weapon/weapon.gd" id="2_j4uhw"]
 [ext_resource type="PackedScene" uid="uid://ctsglvau3y5lf" path="res://scenes/ship_prototype.tscn" id="2_mt4ja"]
+[ext_resource type="Script" path="res://scripts/components/weapon/aim_straight.gd" id="3_4hcpx"]
+[ext_resource type="Script" path="res://scripts/components/weapon/single_shot.gd" id="4_0ruau"]
+[ext_resource type="PackedScene" uid="uid://b6sf61dl0c6w3" path="res://scenes/cannonball.tscn" id="5_4sn0c"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_otig1"]
 radius = 50.0
@@ -23,8 +27,30 @@ radius = 40.0
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
+[node name="ShipPrototype" parent="." instance=ExtResource("2_mt4ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.4143, 0)
+
+[node name="Cannon" type="Node3D" parent="ShipPrototype"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.694592, -1.11504)
+script = ExtResource("2_j4uhw")
+_cooldown = 1.0
+
+[node name="AimStraight" type="Node3D" parent="ShipPrototype/Cannon" node_paths=PackedStringArray("horizontal_pivot", "vertical_pivot")]
+script = ExtResource("3_4hcpx")
+horizontal_pivot = NodePath(".")
+vertical_pivot = NodePath(".")
+horizontal_speed = 5.0
+vertical_speed = 5.0
+line_length = 5.0
+line_color = Color(0.8905, 0.501874, 0, 1)
+
+[node name="SingleShot" type="Node3D" parent="ShipPrototype/Cannon" node_paths=PackedStringArray("spawner", "ignored_colliders")]
+script = ExtResource("4_0ruau")
+projectile_scene = ExtResource("5_4sn0c")
+spawner = NodePath("../AimStraight")
+ignored_colliders = [NodePath("../..")]
+
 [node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.73927, 36.0473)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_wigvl")
@@ -42,14 +68,31 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D/MeshInstance3D/StaticBody3D"]
 shape = SubResource("SphereShape3D_4tr76")
 
-[node name="ShipPrototype" parent="." instance=ExtResource("2_mt4ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.7241, 0)
-
-[node name="ShipPrototype2" parent="." instance=ExtResource("2_mt4ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 44.8338, 61.1758)
-
-[node name="ShipPrototype3" parent="." instance=ExtResource("2_mt4ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.15632, 3.95044, 79.6195)
-
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.620483, -0.117918, 0.775304, 0, 0.988631, 0.150364, -0.78422, -0.093298, 0.613429, 68.5117, 21.3882, 84.5281)
+transform = Transform3D(-0.718098, -0.317553, 0.619271, 0, 0.88983, 0.456292, -0.695943, 0.327662, -0.638985, 3.53092, 45.6035, -3.48174)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="CheckButton" type="CheckButton" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Select Weapon"
+
+[node name="Button2" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Fire"
+
+[connection signal="fired" from="ShipPrototype/Cannon" to="ShipPrototype/Cannon/SingleShot" method="_on_weapon_fired"]
+[connection signal="toggled" from="Control/VBoxContainer/CheckButton" to="ShipPrototype/Cannon" method="set_active"]
+[connection signal="pressed" from="Control/VBoxContainer/Button2" to="ShipPrototype/Cannon" method="on_weapon_fired"]

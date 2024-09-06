@@ -28,8 +28,9 @@ mesh = SubResource("PrismMesh_w20dk")
 
 [node name="CustomComponents" type="Node3D" parent="."]
 
-[node name="GravitationalBody3D" type="Node3D" parent="CustomComponents"]
+[node name="GravitationalBody3D" type="Node3D" parent="CustomComponents" node_paths=PackedStringArray("physics_body")]
 script = ExtResource("1_prxac")
+physics_body = NodePath("../..")
 _gravity_direction = Vector3(0, 0, 0)
 
 [node name="BuoyantBody3D" type="Node3D" parent="CustomComponents"]
