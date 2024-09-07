@@ -39,6 +39,12 @@ func spin(direction_factor: float) -> void:
 	rudder_spun.emit(_current_spin, _current_direction_angle)
 
 
+func _on_rudder_reset() -> void:
+	_current_spin = 0
+	_current_direction_angle = 0
+	rudder_spun.emit(_current_spin, _current_direction_angle)
+
+
 func _physics_process(delta):
 	physics_body = physics_body as CharacterBody3D
 	physics_body.rotate_object_local(Vector3.UP, deg_to_rad(-_current_direction_angle * delta))

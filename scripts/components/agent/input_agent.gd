@@ -23,6 +23,9 @@ func rudder_input_handle() -> void:
 	var axis = Input.get_axis("in_game_l_left", "in_game_l_right")
 	rudder.spin(axis * rudder_speed)
 
+	if Input.is_action_just_pressed("in_game_l_click"):
+		rudder._on_rudder_reset()
+
 
 func weapon_input_handle():
 	if Input.is_action_just_pressed("in_game_l_t"):
