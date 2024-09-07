@@ -45,8 +45,9 @@ script = ExtResource("1_prxac")
 physics_body = NodePath("../..")
 _gravity_direction = Vector3(0, 0, 0)
 
-[node name="BuoyantBody3D" type="Node3D" parent="CustomComponents"]
+[node name="BuoyantBody3D" type="Node3D" parent="CustomComponents" node_paths=PackedStringArray("body")]
 script = ExtResource("2_vyyj1")
+body = NodePath("../..")
 
 [node name="SailSimulation" type="Node" parent="CustomComponents" node_paths=PackedStringArray("physics_body")]
 script = ExtResource("3_ox3ip")
@@ -82,3 +83,5 @@ horizontal_speed = 10.0
 vertical_speed = 10.0
 line_length = 10.0
 line_color = Color(0.874378, 0.406725, 1.92523e-07, 1)
+
+[connection signal="gravity_changed" from="CustomComponents/GravitationalBody3D" to="CustomComponents/BuoyantBody3D" method="set_downwards"]

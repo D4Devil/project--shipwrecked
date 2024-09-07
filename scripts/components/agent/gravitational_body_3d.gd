@@ -31,7 +31,7 @@ func _physics_process(delta):
 
 func set_gravity_direction(value: Vector3) -> void:
 	_gravity_direction = value
-	gravity_changed.emit()
+	gravity_changed.emit(_gravity_direction)
 
 
 func _enter_tree() -> void:
