@@ -1,11 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://caytfce6raore"]
+[gd_scene load_steps=7 format=3 uid="uid://caytfce6raore"]
 
 [ext_resource type="Script" path="res://scripts/components/world/gravity_field_3d.gd" id="1_wigvl"]
-[ext_resource type="Script" path="res://scripts/components/weapon/weapon.gd" id="2_j4uhw"]
-[ext_resource type="PackedScene" uid="uid://ctsglvau3y5lf" path="res://scenes/ship_prototype.tscn" id="2_mt4ja"]
-[ext_resource type="Script" path="res://scripts/components/weapon/aim_straight.gd" id="3_4hcpx"]
-[ext_resource type="Script" path="res://scripts/components/weapon/single_shot.gd" id="4_0ruau"]
-[ext_resource type="PackedScene" uid="uid://b6sf61dl0c6w3" path="res://scenes/cannonball.tscn" id="5_4sn0c"]
+[ext_resource type="PackedScene" uid="uid://ctsglvau3y5lf" path="res://scenes/ship_prototype.tscn" id="2_q6hgr"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_otig1"]
 radius = 300.0
@@ -26,32 +22,6 @@ radius = 198.0
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
-
-[node name="ShipPrototype" parent="." instance=ExtResource("2_mt4ja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 214.306, 0)
-
-[node name="Cannon" type="Marker3D" parent="ShipPrototype"]
-transform = Transform3D(-3.09086e-08, -0.258819, -0.965926, -3.09086e-08, 0.965926, -0.258819, 1, 2.18557e-08, -3.78552e-08, 2.73309, 0.721298, -1.44317)
-script = ExtResource("2_j4uhw")
-_cooldown = 1.0
-
-[node name="AimStraight" type="Node3D" parent="ShipPrototype/Cannon" node_paths=PackedStringArray("horizontal_pivot", "vertical_pivot")]
-script = ExtResource("3_4hcpx")
-horizontal_pivot = NodePath(".")
-vertical_pivot = NodePath(".")
-horizontal_speed = 5.0
-vertical_speed = 5.0
-line_length = 5.0
-line_color = Color(0.8905, 0.501874, 0, 1)
-
-[node name="SingleShot" type="Node3D" parent="ShipPrototype/Cannon" node_paths=PackedStringArray("spawner", "ignored_colliders")]
-script = ExtResource("4_0ruau")
-projectile_scene = ExtResource("5_4sn0c")
-spawner = NodePath("../AimStraight")
-ignored_colliders = [NodePath("../..")]
-
-[node name="Camera3D" type="Camera3D" parent="ShipPrototype"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 21.0876, 24.5086)
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0
@@ -93,6 +63,8 @@ text = "Select Weapon"
 layout_mode = 2
 text = "Fire"
 
-[connection signal="fired" from="ShipPrototype/Cannon" to="ShipPrototype/Cannon/SingleShot" method="_on_weapon_fired"]
-[connection signal="toggled" from="Control/VBoxContainer/CheckButton" to="ShipPrototype/Cannon" method="set_active"]
-[connection signal="pressed" from="Control/VBoxContainer/Button2" to="ShipPrototype/Cannon" method="on_weapon_fired"]
+[node name="ShipPrototype" parent="." instance=ExtResource("2_q6hgr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 237.836, 0)
+
+[node name="Camera3D" type="Camera3D" parent="ShipPrototype"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 15.622, 13.0835)

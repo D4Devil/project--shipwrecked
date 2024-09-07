@@ -1,10 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctsglvau3y5lf"]
+[gd_scene load_steps=14 format=3 uid="uid://ctsglvau3y5lf"]
 
 [ext_resource type="Script" path="res://scripts/components/agent/gravitational_body_3d.gd" id="1_prxac"]
 [ext_resource type="Script" path="res://scripts/components/agent/buoyant_body_3d.gd" id="2_vyyj1"]
 [ext_resource type="Script" path="res://scripts/components/agent/sail_simulation.gd" id="3_ox3ip"]
 [ext_resource type="Script" path="res://scripts/components/agent/rudder_simulation.gd" id="4_osjkg"]
 [ext_resource type="Script" path="res://scripts/components/agent/input_agent.gd" id="5_xyooc"]
+[ext_resource type="Script" path="res://scripts/components/weapon/weapon.gd" id="6_x3qnc"]
+[ext_resource type="Script" path="res://scripts/components/weapon/single_shot.gd" id="7_gsmwt"]
+[ext_resource type="Script" path="res://scripts/components/weapon/aim_straight.gd" id="8_4lvd5"]
+[ext_resource type="PackedScene" uid="uid://b6sf61dl0c6w3" path="res://scenes/cannonball.tscn" id="8_xmba0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5enxt"]
 radius = 2.0
@@ -26,11 +30,11 @@ material = SubResource("StandardMaterial3D_s2pt1")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.3, 0)
 shape = SubResource("CapsuleShape3D_5enxt")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Ship" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.3, 0)
 mesh = SubResource("CapsuleMesh_nch5w")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="Arrow" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.64838e-08, 0.696806, 0, -1.06343, -3.04584e-08, 0, 1.6541, -4.57314)
 mesh = SubResource("PrismMesh_w20dk")
 
@@ -52,8 +56,29 @@ physics_body = NodePath("../..")
 script = ExtResource("4_osjkg")
 physics_body = NodePath("../..")
 
-[node name="InputAgent" type="Node" parent="CustomComponents" node_paths=PackedStringArray("rudder", "sail")]
+[node name="InputAgent" type="Node" parent="CustomComponents" node_paths=PackedStringArray("rudder", "sail", "weapon")]
 script = ExtResource("5_xyooc")
 rudder = NodePath("../RudderSimulation")
 rudder_speed = 1.0
 sail = NodePath("../SailSimulation")
+weapon = NodePath("../../Cannon")
+
+[node name="Cannon" type="Marker3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.22215, 1.95312, -1.70753)
+script = ExtResource("6_x3qnc")
+_cooldown = 0.5
+
+[node name="SingleShot" type="Node" parent="Cannon" node_paths=PackedStringArray("spawner", "ignored_colliders")]
+script = ExtResource("7_gsmwt")
+projectile_scene = ExtResource("8_xmba0")
+spawner = NodePath("..")
+ignored_colliders = [NodePath("../..")]
+
+[node name="AimStraight" type="Node3D" parent="Cannon" node_paths=PackedStringArray("horizontal_pivot", "vertical_pivot")]
+script = ExtResource("8_4lvd5")
+horizontal_pivot = NodePath("..")
+vertical_pivot = NodePath("..")
+horizontal_speed = 10.0
+vertical_speed = 10.0
+line_length = 10.0
+line_color = Color(0.874378, 0.406725, 1.92523e-07, 1)
