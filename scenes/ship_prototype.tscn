@@ -65,11 +65,11 @@ sail = NodePath("../SailSimulation")
 weapon = NodePath("../../Cannon")
 
 [node name="Cannon" type="Marker3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.22215, 1.95312, -1.70753)
+transform = Transform3D(-4.37114e-08, -0.5, -0.866025, 0, 0.866025, -0.5, 1, -2.18557e-08, -3.78552e-08, 1.74818, 2.25682, -1.70753)
 script = ExtResource("6_x3qnc")
 _cooldown = 0.5
 
-[node name="SingleShot" type="Node" parent="Cannon" node_paths=PackedStringArray("spawner", "ignored_colliders")]
+[node name="SingleShot" type="Node3D" parent="Cannon" node_paths=PackedStringArray("spawner", "ignored_colliders")]
 script = ExtResource("7_gsmwt")
 projectile_scene = ExtResource("8_xmba0")
 spawner = NodePath("..")
@@ -85,3 +85,4 @@ line_length = 10.0
 line_color = Color(0.874378, 0.406725, 1.92523e-07, 1)
 
 [connection signal="gravity_changed" from="CustomComponents/GravitationalBody3D" to="CustomComponents/BuoyantBody3D" method="set_downwards"]
+[connection signal="fired" from="Cannon" to="Cannon/SingleShot" method="_on_weapon_fired"]

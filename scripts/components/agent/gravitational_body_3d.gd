@@ -22,11 +22,11 @@ signal gravity_changed(new_gravity: Vector3)
 func _physics_process(delta):
 	if physics_body is CharacterBody3D:
 		physics_body = physics_body as CharacterBody3D
-		physics_body.move_and_collide((_gravity_direction / (delta * delta)) * delta )
+		physics_body.move_and_collide(_gravity_direction  * delta * gravity_scalar)
 	
 	if physics_body is RigidBody3D:
 		physics_body = physics_body as RigidBody3D
-		physics_body.apply_central_force((_gravity_direction / (delta * delta)) * delta)
+		physics_body.apply_central_force(_gravity_direction * delta * gravity_scalar)
 
 
 func set_gravity_direction(value: Vector3) -> void:
