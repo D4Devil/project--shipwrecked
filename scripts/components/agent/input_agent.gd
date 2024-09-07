@@ -30,3 +30,6 @@ func weapon_input_handle():
 	
 	if Input.is_action_just_released("in_game_l_t"):
 		weapon._active = false
+
+	if Input.is_action_just_pressed("in_game_r_t"):
+		weapon.on_weapon_fired()
