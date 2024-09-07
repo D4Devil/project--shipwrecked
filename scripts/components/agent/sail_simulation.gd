@@ -28,7 +28,6 @@ func sail_shift(shitfts := 1) -> void:
 	var target_idx = _current_sail_idx + shitfts
 
 	if target_idx < 0 or target_idx >= _sail_speeds.size(): ## Invalid sail shift
-		push_warning("Sail shift cannot be performed, index out of range.")
 		return 
 	
 	_current_sail_idx = target_idx
