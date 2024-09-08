@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://caytfce6raore"]
+[gd_scene load_steps=21 format=3 uid="uid://caytfce6raore"]
 
 [ext_resource type="Script" path="res://scripts/components/world/gravity_field_3d.gd" id="1_wigvl"]
 [ext_resource type="PackedScene" uid="uid://ctsglvau3y5lf" path="res://scenes/ship_prototype.tscn" id="2_q6hgr"]
+[ext_resource type="PackedScene" uid="uid://smdamkc0djd0" path="res://models/terrain/tower/tower.gltf" id="3_rca13"]
+[ext_resource type="Script" path="res://scripts/components/agent/gravitational_body_3d.gd" id="4_vng8l"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_otig1"]
 radius = 300.0
@@ -15,7 +17,65 @@ radius = 200.0
 height = 400.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4tr76"]
-radius = 198.0
+radius = 199.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_h04vl"]
+height = 4.39771
+radius = 1.69527
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_eihww"]
+height = 10.0
+radius = 4.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihphs"]
+resource_local_to_scene = true
+albedo_color = Color(0.303233, 0.303233, 0.303233, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xg2ok"]
+material = SubResource("StandardMaterial3D_ihphs")
+top_radius = 2.0
+bottom_radius = 4.0
+height = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0llfa"]
+resource_local_to_scene = true
+albedo_color = Color(0.913671, 0.576883, 1.54018e-06, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4akis"]
+material = SubResource("StandardMaterial3D_0llfa")
+top_radius = 2.0
+bottom_radius = 4.0
+height = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ceht3"]
+resource_local_to_scene = true
+albedo_color = Color(0.997794, 0.311373, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p26vu"]
+material = SubResource("StandardMaterial3D_ceht3")
+top_radius = 2.0
+bottom_radius = 4.0
+height = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tqjxb"]
+resource_local_to_scene = true
+albedo_color = Color(1.34766e-06, 0.745436, 0.835043, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_l3pvy"]
+material = SubResource("StandardMaterial3D_tqjxb")
+top_radius = 2.0
+bottom_radius = 4.0
+height = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bto6i"]
+resource_local_to_scene = true
+albedo_color = Color(0, 0.790918, 0.421946, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f765v"]
+material = SubResource("StandardMaterial3D_bto6i")
+top_radius = 2.0
+bottom_radius = 4.0
+height = 10.0
 
 [node name="Test" type="Node3D"]
 
@@ -23,49 +83,88 @@ radius = 198.0
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Ocean" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_wigvl")
 gravity_force = 10.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ocean"]
 shape = SubResource("SphereShape3D_otig1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ocean"]
 mesh = SubResource("SphereMesh_qv3f0")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Area3D/MeshInstance3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Ocean/MeshInstance3D"]
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D/MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ocean/MeshInstance3D/StaticBody3D"]
 shape = SubResource("SphereShape3D_4tr76")
-
-[node name="Control" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-grow_vertical = 2
-
-[node name="CheckButton" type="CheckButton" parent="Control/VBoxContainer"]
-layout_mode = 2
-text = "Select Weapon"
-
-[node name="Button2" type="Button" parent="Control/VBoxContainer"]
-layout_mode = 2
-text = "Fire"
 
 [node name="ShipPrototype" parent="." instance=ExtResource("2_q6hgr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 211.192, 0)
 
 [node name="Camera3D" type="Camera3D" parent="ShipPrototype"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 15.622, 13.0835)
+
+[node name="World" type="Node" parent="."]
+
+[node name="Tower" type="CharacterBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35635, 204.358, -16.2647)
+
+[node name="tower2" parent="World/Tower" instance=ExtResource("3_rca13")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.93738, -0.71666, 1.4333)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Tower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93721, 0)
+shape = SubResource("CylinderShape3D_h04vl")
+
+[node name="GravitationalBody3D" type="Node3D" parent="World/Tower" node_paths=PackedStringArray("physics_body")]
+script = ExtResource("4_vng8l")
+physics_body = NodePath("..")
+gravity_scalar = 2.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World"]
+transform = Transform3D(0.866025, 0.482963, 0.12941, 0.353553, -0.774519, 0.524519, 0.353553, -0.408494, -0.841506, 65.4074, -167.885, -89.9362)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D"]
+shape = SubResource("CylinderShape3D_eihww")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/StaticBody3D"]
+mesh = SubResource("CylinderMesh_xg2ok")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="World"]
+transform = Transform3D(0.5, -0.5, 0.707107, 0.707107, 0.707107, 0, -0.5, 0.5, 0.707107, -116.488, 149.109, 77.7969)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D2"]
+shape = SubResource("CylinderShape3D_eihww")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/StaticBody3D2"]
+mesh = SubResource("CylinderMesh_4akis")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.117462, 144.505, -145.85)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D3"]
+shape = SubResource("CylinderShape3D_eihww")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/StaticBody3D3"]
+mesh = SubResource("CylinderMesh_p26vu")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="World"]
+transform = Transform3D(0.707107, 0.683013, -0.183013, -0.707107, 0.683013, -0.183013, 0, 0.258819, 0.965926, 159.437, 116.891, 49.9723)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D4"]
+shape = SubResource("CylinderShape3D_eihww")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/StaticBody3D4"]
+mesh = SubResource("CylinderMesh_l3pvy")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, -0.258819, -0.965926, 0, 0.965926, -0.258819, 23.0324, -15.2072, 202.248)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D5"]
+shape = SubResource("CylinderShape3D_eihww")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/StaticBody3D5"]
+mesh = SubResource("CylinderMesh_f765v")

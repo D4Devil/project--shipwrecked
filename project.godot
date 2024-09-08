@@ -184,3 +184,4 @@ in_game_menu={
 
 3d_physics/layer_1="General"
 3d_physics/layer_2="Gravitational Bodies"
+3d_physics/layer_5="Scenary"
