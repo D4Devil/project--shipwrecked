@@ -39,7 +39,8 @@ body = NodePath("../..")
 [node name="SailSimulation" type="Node" parent="CustomComponents" node_paths=PackedStringArray("physics_body")]
 script = ExtResource("3_ox3ip")
 physics_body = NodePath("../..")
-_sail_speeds = Array[float]([0.0, 10.0, 30.0])
+_sail_speeds = Array[float]([0.0, 8.0, 18.0])
+_acceleration = 0.2
 
 [node name="RudderSimulation" type="Node" parent="CustomComponents" node_paths=PackedStringArray("physics_body")]
 script = ExtResource("4_osjkg")
