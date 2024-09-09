@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://caytfce6raore"]
+[gd_scene load_steps=23 format=3 uid="uid://caytfce6raore"]
 
 [ext_resource type="Script" path="res://scripts/components/world/gravity_field_3d.gd" id="1_wigvl"]
 [ext_resource type="PackedScene" uid="uid://ctsglvau3y5lf" path="res://scenes/ship_prototype.tscn" id="2_q6hgr"]
@@ -18,6 +18,17 @@ height = 400.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4tr76"]
 radius = 199.0
+
+[sub_resource type="GDScript" id="GDScript_yfmfd"]
+resource_name = "CameraInputHandler"
+script/source = "extends Node3D
+
+@export var rotation_speed: float = 10
+
+func _process(delta: float) -> void:
+	var speed = Input.get_axis(\"in_game_r_right\", \"in_game_r_left\")
+	rotate(basis.y, deg_to_rad(speed * delta * rotation_speed))
+"
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_h04vl"]
 height = 4.39771
@@ -77,6 +88,10 @@ top_radius = 2.0
 bottom_radius = 4.0
 height = 10.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_0tpcj"]
+font_size = 22
+font_color = Color(0.753984, 0.753984, 0.753984, 1)
+
 [node name="Test" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -104,7 +119,11 @@ shape = SubResource("SphereShape3D_4tr76")
 [node name="ShipPrototype" parent="." instance=ExtResource("2_q6hgr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 211.192, 0)
 
-[node name="Camera3D" type="Camera3D" parent="ShipPrototype"]
+[node name="CameraPivot" type="Node3D" parent="ShipPrototype"]
+script = SubResource("GDScript_yfmfd")
+rotation_speed = 100.0
+
+[node name="Camera3D" type="Camera3D" parent="ShipPrototype/CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 15.622, 13.0835)
 
 [node name="World" type="Node" parent="."]
@@ -168,3 +187,39 @@ shape = SubResource("CylinderShape3D_eihww")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="World/StaticBody3D5"]
 mesh = SubResource("CylinderMesh_f765v")
+
+[node name="InputMenu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="InputMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.329412, 0.329412, 0.329412, 0.184314)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InputMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="InputMenu/VBoxContainer"]
+layout_mode = 2
+text = "Input Map"
+label_settings = SubResource("LabelSettings_0tpcj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="InputMenu/VBoxContainer"]
+layout_mode = 2

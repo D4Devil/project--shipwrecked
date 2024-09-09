@@ -12,6 +12,8 @@ extends Node
 
 ## Your custom set of speeds
 @export var _sail_speeds : Array[float] = [0, 30, 70,]
+@export var _acceleration : float = 1
+var _current_sail_speed : float = 0
 
 ## The position of the sail state 
 var _current_sail_idx : int = 0
@@ -36,8 +38,15 @@ func sail_shift(shitfts := 1) -> void:
 
 func _physics_process(delta: float):
 	physics_body = physics_body as CharacterBody3D
-	physics_body.move_and_collide(-physics_body.basis.z * _sail_speeds[_current_sail_idx] * delta)
+
+	var directioned_acceleration = _acceleration
+	if _sail_speeds[_current_sail_idx] < _current_sail_speed:
+		directioned_acceleration = -directioned_acceleration
+
+	_current_sail_speed += directioned_acceleration
+	clampf(_current_sail_speed, 0, _sail_speeds[_current_sail_idx])
+	physics_body.move_and_collide(-physics_body.basis.z.normalized() * _current_sail_speed * delta)
 
 
 func get_current_speed() -> float:
-	return _sail_speeds[_current_sail_idx]
+	return _current_sail_speed
