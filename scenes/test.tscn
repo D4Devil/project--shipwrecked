@@ -130,6 +130,7 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 15.622,
 
 [node name="Tower" type="CharacterBody3D" parent="World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35635, 204.358, -16.2647)
+collision_layer = 3
 
 [node name="tower2" parent="World/Tower" instance=ExtResource("3_rca13")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.93738, -0.71666, 1.4333)

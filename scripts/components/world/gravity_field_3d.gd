@@ -39,3 +39,4 @@ func _physics_process(_delta: float) -> void:
 	for body in _bodies:
 		var new_dir = body.global_position.direction_to(global_position)
 		body.set_gravity_direction(new_dir * gravity_force)
+	
