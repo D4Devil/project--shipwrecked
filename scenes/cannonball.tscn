@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b6sf61dl0c6w3"]
+[gd_scene load_steps=6 format=3 uid="uid://b6sf61dl0c6w3"]
 
 [ext_resource type="Script" path="res://scripts/components/antigravity/antigravity_body_3d.gd" id="1_gqsak"]
-[ext_resource type="Script" path="res://scripts/components/agent/force_integrator.gd" id="1_kx4yv"]
 
 [sub_resource type="GDScript" id="GDScript_xktnf"]
 resource_name = "Cannonball"
@@ -32,12 +31,8 @@ shape = SubResource("SphereShape3D_uytbx")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_df86g")
 
-[node name="ForceIntegrator" type="Node3D" parent="."]
-script = ExtResource("1_kx4yv")
-
-[node name="GravitationalBody3D" type="Node3D" parent="ForceIntegrator" node_paths=PackedStringArray("physics_body")]
+[node name="AntigravityBody3D" type="Node3D" parent="."]
 script = ExtResource("1_gqsak")
-physics_body = NodePath("../..")
 gravity_scalar = 80.0
 
 [connection signal="body_entered" from="." to="." method="queue_free" unbinds=1]

@@ -102,7 +102,7 @@ shadow_enabled = true
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_wigvl")
-gravity_force = 10.0
+gravity_force = 9.81
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ocean"]
 shape = SubResource("SphereShape3D_otig1")
@@ -118,6 +118,7 @@ shape = SubResource("SphereShape3D_4tr76")
 
 [node name="ShipPrototype" parent="." instance=ExtResource("2_q6hgr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 211.192, 0)
+collision_layer = 3
 
 [node name="CameraPivot" type="Node3D" parent="ShipPrototype"]
 script = SubResource("GDScript_yfmfd")
@@ -139,9 +140,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.93738, -0.71666, 1.4333)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93721, 0)
 shape = SubResource("CylinderShape3D_h04vl")
 
-[node name="GravitationalBody3D" type="Node3D" parent="World/Tower" node_paths=PackedStringArray("physics_body")]
+[node name="GravitationalBody3D" type="Node3D" parent="World/Tower"]
 script = ExtResource("4_vng8l")
-physics_body = NodePath("..")
 gravity_scalar = 2.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="World"]

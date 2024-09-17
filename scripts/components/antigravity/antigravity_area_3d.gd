@@ -2,7 +2,7 @@ class_name AntigravityArea3D
 extends Area3D
 
 @export var antigravity_space_override: SpaceOverride = SpaceOverride.SPACE_OVERRIDE_COMBINE
-@export var gravity_force: float
+@export var gravity_force: float = 1
 var _bodies: Array[AntigravityBody3D]
 
 func _ready():

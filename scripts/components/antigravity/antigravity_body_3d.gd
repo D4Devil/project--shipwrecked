@@ -55,13 +55,11 @@ func _compute_gravity() -> void:
 			break
 
 		match field.antigravity_space_override:
-			Area3D.SPACE_OVERRIDE_COMBINE or \
-			Area3D.SPACE_OVERRIDE_COMBINE_REPLACE:
+			Area3D.SPACE_OVERRIDE_COMBINE, Area3D.SPACE_OVERRIDE_COMBINE_REPLACE:
 				_current_gravity += _antigravity_values[field.get_rid()]
 				_gravity_done = field.antigravity_space_override == Area3D.SpaceOverride.SPACE_OVERRIDE_COMBINE_REPLACE
 			
-			Area3D.SPACE_OVERRIDE_REPLACE or \
-			Area3D.SPACE_OVERRIDE_REPLACE_COMBINE:
+			Area3D.SPACE_OVERRIDE_REPLACE, Area3D.SPACE_OVERRIDE_REPLACE_COMBINE:
 				_current_gravity = _antigravity_values[field.get_rid()]
 				_gravity_done = field.antigravity_space_override == Area3D.SPACE_OVERRIDE_REPLACE
 
@@ -69,7 +67,8 @@ func _compute_gravity() -> void:
 ## Hook or interface for AntigravityArea3D
 func set_update_gravity(source: AntigravityArea3D, value: Vector3) -> void:
 	_antigravity_values[source.get_rid()] = value
-	_antigravity_fields.append(source)
+	if not  _antigravity_fields.has(source):
+		_antigravity_fields.push_front(source)
 
 
 func _enter_tree() -> void:
