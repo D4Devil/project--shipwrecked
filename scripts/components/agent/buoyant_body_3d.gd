@@ -3,6 +3,7 @@ extends Node3D
 
 
 @export var body: Node3D
+
 var downwards :
 	set = set_downwards
 

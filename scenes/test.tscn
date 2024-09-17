@@ -1,9 +1,9 @@
 [gd_scene load_steps=23 format=3 uid="uid://caytfce6raore"]
 
-[ext_resource type="Script" path="res://scripts/components/world/gravity_field_3d.gd" id="1_wigvl"]
+[ext_resource type="Script" path="res://scripts/components/antigravity/antigravity_area_3d.gd" id="1_wigvl"]
 [ext_resource type="PackedScene" uid="uid://ctsglvau3y5lf" path="res://scenes/ship_prototype.tscn" id="2_q6hgr"]
 [ext_resource type="PackedScene" uid="uid://smdamkc0djd0" path="res://models/terrain/tower/tower.gltf" id="3_rca13"]
-[ext_resource type="Script" path="res://scripts/components/agent/gravitational_body_3d.gd" id="4_vng8l"]
+[ext_resource type="Script" path="res://scripts/components/antigravity/antigravity_body_3d.gd" id="4_vng8l"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_otig1"]
 radius = 300.0
@@ -102,7 +102,7 @@ shadow_enabled = true
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_wigvl")
-gravity_force = 10.0
+gravity_force = 9.81
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ocean"]
 shape = SubResource("SphereShape3D_otig1")
@@ -118,6 +118,7 @@ shape = SubResource("SphereShape3D_4tr76")
 
 [node name="ShipPrototype" parent="." instance=ExtResource("2_q6hgr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 211.192, 0)
+collision_layer = 3
 
 [node name="CameraPivot" type="Node3D" parent="ShipPrototype"]
 script = SubResource("GDScript_yfmfd")
@@ -130,6 +131,7 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 15.622,
 
 [node name="Tower" type="CharacterBody3D" parent="World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35635, 204.358, -16.2647)
+collision_layer = 3
 
 [node name="tower2" parent="World/Tower" instance=ExtResource("3_rca13")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.93738, -0.71666, 1.4333)
@@ -138,9 +140,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.93738, -0.71666, 1.4333)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93721, 0)
 shape = SubResource("CylinderShape3D_h04vl")
 
-[node name="GravitationalBody3D" type="Node3D" parent="World/Tower" node_paths=PackedStringArray("physics_body")]
+[node name="GravitationalBody3D" type="Node3D" parent="World/Tower"]
 script = ExtResource("4_vng8l")
-physics_body = NodePath("..")
 gravity_scalar = 2.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="World"]
