@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://di55v2v10c8vk"]
+
+[sub_resource type="GDScript" id="GDScript_7ncm0"]
+script/source = "class_name SomeBug
+extends CharacterBody3D
+
+var annother_velocity : Vector3
+
+func _process(delta: float) -> void:
+	move_and_collide(Vector3.FORWARD)
+	annother_velocity = velocity
+	print(annother_velocity)
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_38of6"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = SubResource("GDScript_7ncm0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("SphereShape3D_38of6")
+
+[node name="Node3D" type="Node3D" parent="."]

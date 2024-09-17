@@ -46,7 +46,8 @@ func _physics_process(delta: float):
 
 	if physics_body is CharacterBody3D:
 		physics_body = physics_body as CharacterBody3D
-		physics_body.move_and_collide(-physics_body.basis.z.normalized() * _current_sail_speed * delta)
+		physics_body.velocity = -physics_body.basis.z.normalized() * _current_sail_speed * delta
+		physics_body.move_and_slide()
 
 
 func get_current_speed() -> float:

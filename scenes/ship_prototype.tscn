@@ -22,6 +22,7 @@ collision_mask = 17
 [node name="AntigravityBody3D" type="Node3D" parent="."]
 transform = Transform3D(1, 2.98023e-08, 2.13163e-14, -2.98023e-08, 1, 5.32907e-15, 7.10543e-15, -5.32907e-15, 1, -1.54972e-06, -1.19209e-06, 0)
 script = ExtResource("1_prxac")
+gravity_scalar = 50.0
 
 [node name="ship_dark" parent="." instance=ExtResource("1_vgylu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.29453, 0, 0.383421)
@@ -39,8 +40,8 @@ body = NodePath("../..")
 [node name="SailSimulation" type="Node" parent="CustomComponents" node_paths=PackedStringArray("physics_body")]
 script = ExtResource("3_ox3ip")
 physics_body = NodePath("../..")
-_sail_speeds = Array[float]([0.0, 8.0, 18.0])
-_acceleration = 0.2
+_sail_speeds = Array[float]([0.0, 500.0, 1250.0])
+_acceleration = 10.0
 
 [node name="RudderSimulation" type="Node" parent="CustomComponents" node_paths=PackedStringArray("physics_body")]
 script = ExtResource("4_osjkg")
@@ -60,10 +61,11 @@ transform = Transform3D(-4.37114e-08, -0.5, -0.866025, 0, 0.866025, -0.5, 1, -2.
 script = ExtResource("6_x3qnc")
 _cooldown = 0.5
 
-[node name="SingleShot" type="Node3D" parent="Cannon" node_paths=PackedStringArray("spawner", "ignored_colliders")]
+[node name="SingleShot" type="Node3D" parent="Cannon" node_paths=PackedStringArray("origin", "origin_physics_body", "ignored_colliders")]
 script = ExtResource("7_gsmwt")
 projectile_scene = ExtResource("8_xmba0")
-spawner = NodePath("..")
+origin = NodePath("..")
+origin_physics_body = NodePath("../..")
 ignored_colliders = [NodePath("../..")]
 
 [node name="AimStraight" type="Node3D" parent="Cannon" node_paths=PackedStringArray("horizontal_pivot", "vertical_pivot")]
