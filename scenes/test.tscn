@@ -107,18 +107,18 @@ gravity_force = 9.81
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ocean"]
 shape = SubResource("SphereShape3D_otig1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ocean"]
-mesh = SubResource("SphereMesh_qv3f0")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Ocean/MeshInstance3D"]
+[node name="OceanFloor" type="StaticBody3D" parent="Ocean"]
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ocean/MeshInstance3D/StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ocean/OceanFloor"]
+mesh = SubResource("SphereMesh_qv3f0")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ocean/OceanFloor"]
 shape = SubResource("SphereShape3D_4tr76")
 
 [node name="ShipPrototype" parent="." instance=ExtResource("2_q6hgr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 211.192, 0)
-collision_layer = 3
 
 [node name="CameraPivot" type="Node3D" parent="ShipPrototype"]
 script = SubResource("GDScript_yfmfd")
