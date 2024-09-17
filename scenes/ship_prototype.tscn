@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://ctsglvau3y5lf"]
 
-[ext_resource type="Script" path="res://scripts/components/agent/gravitational_body_3d.gd" id="1_prxac"]
+[ext_resource type="Script" path="res://scripts/components/antigravity/antigravity_body_3d.gd" id="1_prxac"]
 [ext_resource type="PackedScene" uid="uid://dpmdsetb81mfx" path="res://models/ships/ship_dark/ship_dark.gltf" id="1_vgylu"]
 [ext_resource type="Script" path="res://scripts/components/agent/buoyant_body_3d.gd" id="2_vyyj1"]
 [ext_resource type="Script" path="res://scripts/components/agent/sail_simulation.gd" id="3_ox3ip"]
@@ -16,7 +16,12 @@ radius = 1.29945
 height = 6.76573
 
 [node name="ShipPrototype" type="CharacterBody3D"]
+collision_layer = 3
 collision_mask = 17
+
+[node name="AntigravityBody3D" type="Node3D" parent="."]
+transform = Transform3D(1, 2.98023e-08, 2.13163e-14, -2.98023e-08, 1, 5.32907e-15, 7.10543e-15, -5.32907e-15, 1, -1.54972e-06, -1.19209e-06, 0)
+script = ExtResource("1_prxac")
 
 [node name="ship_dark" parent="." instance=ExtResource("1_vgylu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.29453, 0, 0.383421)
@@ -26,12 +31,6 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.1
 shape = SubResource("CapsuleShape3D_5enxt")
 
 [node name="CustomComponents" type="Node3D" parent="."]
-
-[node name="GravitationalBody3D" type="Node3D" parent="CustomComponents" node_paths=PackedStringArray("physics_body")]
-transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, 3.55271e-15, 0, 1, -1.19209e-07, -2.38419e-07, 0)
-script = ExtResource("1_prxac")
-physics_body = NodePath("../..")
-_gravity_direction = Vector3(0, 0, 0)
 
 [node name="BuoyantBody3D" type="Node3D" parent="CustomComponents" node_paths=PackedStringArray("body")]
 script = ExtResource("2_vyyj1")
@@ -76,5 +75,5 @@ vertical_speed = 10.0
 line_length = 10.0
 line_color = Color(0.874378, 0.406725, 1.92523e-07, 1)
 
-[connection signal="gravity_changed" from="CustomComponents/GravitationalBody3D" to="CustomComponents/BuoyantBody3D" method="set_downwards"]
+[connection signal="gravity_changed" from="AntigravityBody3D" to="CustomComponents/BuoyantBody3D" method="set_downwards"]
 [connection signal="fired" from="Cannon" to="Cannon/SingleShot" method="_on_weapon_fired"]

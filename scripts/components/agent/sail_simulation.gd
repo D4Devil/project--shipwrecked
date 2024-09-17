@@ -37,15 +37,16 @@ func sail_shift(shitfts := 1) -> void:
 
 
 func _physics_process(delta: float):
-	physics_body = physics_body as CharacterBody3D
-
 	var directioned_acceleration = _acceleration
 	if _sail_speeds[_current_sail_idx] < _current_sail_speed:
 		directioned_acceleration = -directioned_acceleration
 
 	_current_sail_speed += directioned_acceleration
 	clampf(_current_sail_speed, 0, _sail_speeds[_current_sail_idx])
-	physics_body.move_and_collide(-physics_body.basis.z.normalized() * _current_sail_speed * delta)
+
+	if physics_body is CharacterBody3D:
+		physics_body = physics_body as CharacterBody3D
+		physics_body.move_and_collide(-physics_body.basis.z.normalized() * _current_sail_speed * delta)
 
 
 func get_current_speed() -> float:

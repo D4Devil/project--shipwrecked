@@ -1,9 +1,9 @@
 [gd_scene load_steps=23 format=3 uid="uid://caytfce6raore"]
 
-[ext_resource type="Script" path="res://scripts/components/world/gravity_field_3d.gd" id="1_wigvl"]
+[ext_resource type="Script" path="res://scripts/components/antigravity/antigravity_area_3d.gd" id="1_wigvl"]
 [ext_resource type="PackedScene" uid="uid://ctsglvau3y5lf" path="res://scenes/ship_prototype.tscn" id="2_q6hgr"]
 [ext_resource type="PackedScene" uid="uid://smdamkc0djd0" path="res://models/terrain/tower/tower.gltf" id="3_rca13"]
-[ext_resource type="Script" path="res://scripts/components/agent/gravitational_body_3d.gd" id="4_vng8l"]
+[ext_resource type="Script" path="res://scripts/components/antigravity/antigravity_body_3d.gd" id="4_vng8l"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_otig1"]
 radius = 300.0

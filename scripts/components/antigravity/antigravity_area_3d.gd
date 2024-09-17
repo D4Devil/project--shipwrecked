@@ -1,8 +1,9 @@
-class_name GravityField3D
+class_name AntigravityArea3D
 extends Area3D
 
+@export var antigravity_space_override: SpaceOverride = SpaceOverride.SPACE_OVERRIDE_COMBINE
 @export var gravity_force: float
-var _bodies: Array
+var _bodies: Array[AntigravityBody3D]
 
 func _ready():
 	body_entered.connect(on_body_entered)
@@ -12,11 +13,11 @@ func _ready():
 func on_body_entered(body: Node3D) -> void:
 	print(body.name + " entered the area")
 
-	var gravity_nodes := body.find_children("*", "GravitationalBody3D")
-	if not gravity_nodes:
+	var antigravity_nodes := body.find_children("*", "AntigravityBody3D", false)
+	if not antigravity_nodes:
 		return
 
-	for node in gravity_nodes:
+	for node in antigravity_nodes:
 		if not _bodies.has(node): 
 			_bodies.append(node)
 
@@ -24,11 +25,11 @@ func on_body_entered(body: Node3D) -> void:
 func on_body_exited(body: Node3D) -> void:
 	print(body.name + " exited the area")
 
-	var gravity_nodes := body.find_children("*", "GravitationalBody3D")
-	if not gravity_nodes:
+	var antigravity_nodes := body.find_children("*", "AntigravityBody3D", false)
+	if not antigravity_nodes:
 		return
 
-	for node in gravity_nodes:
+	for node in antigravity_nodes:
 		if _bodies.has(node):
 			_bodies.erase(body)
 
@@ -38,5 +39,5 @@ func _physics_process(_delta: float) -> void:
 	## [Prototype] Sphere Collider	
 	for body in _bodies:
 		var new_dir = body.global_position.direction_to(global_position)
-		body.set_gravity_direction(new_dir * gravity_force)
+		body.set_update_gravity(self, new_dir * gravity_force)
 	
