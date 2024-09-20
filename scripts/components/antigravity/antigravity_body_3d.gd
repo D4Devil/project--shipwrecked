@@ -39,7 +39,13 @@ func _physics_process(delta):
 
 	if physics_body is CharacterBody3D:
 		physics_body = physics_body as CharacterBody3D
-		physics_body.move_and_collide(_current_gravity  * delta * gravity_scalar)
+		physics_body.up_direction = physics_body.basis.y
+		if physics_body.is_on_floor():
+			physics_body.velocity = Vector3.ZERO
+			return
+		physics_body.velocity = _current_gravity  * delta * gravity_scalar
+		physics_body.move_and_slide()
+		#physics_body.move_and_collide(_current_gravity  * delta * gravity_scalar)
 	
 	if physics_body is RigidBody3D:
 		physics_body = physics_body as RigidBody3D

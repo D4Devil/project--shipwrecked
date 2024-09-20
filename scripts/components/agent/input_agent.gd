@@ -12,10 +12,10 @@ func _physics_process(_delta: float) -> void:
 	weapon_input_handle()
 
 func sail_input_handle() -> void:
-	if Input.is_action_pressed("in_game_r_b"):
+	if Input.is_action_just_pressed("in_game_r_b"):
 		sail.sail_shift(1)
 
-	if Input.is_action_pressed("in_game_l_b"):
+	if Input.is_action_just_pressed("in_game_l_b"):
 		sail.sail_shift(-1)
 
  
